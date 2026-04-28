@@ -1,5 +1,6 @@
 import { PRODUCTS, getCategories } from '../../../data/data.js';
-import type { CartItem, Product } from '../../../types/Product.js';
+import type { Product } from '../../../types/Product.js';
+import { addToCart } from '../../../utils/cart.js';
 
 let filteredProducts: Product[] = PRODUCTS;
 let selectedCategory: string | null = null;
@@ -63,20 +64,6 @@ function renderProducts(products: Product[]): void {
         productCard.querySelector('button')?.addEventListener('click', () => addToCart(product));
         productsList.appendChild(productCard);
     });
-}
-
-function addToCart(product: Product): void {
-    const cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
-    const existingItem = cart.find((item: any) => item.product.id === product.id);
-
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({ product, quantity: 1 });
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert(`${product.name} agregado al carrito`);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
