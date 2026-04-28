@@ -1,5 +1,5 @@
 import { PRODUCTS, getCategories } from '../../../data/data.js';
-import type { Product } from '../../../types/product.js';
+import type { Product } from '../../../types/Product.js';
 import { addToCart, getCartCount } from '../../../utils/cart.js';
 
 let selectedCategory: string | null = null;
@@ -40,14 +40,14 @@ function filterByCategory(category: string): void {
 }
 
 function searchProducts(query: string): void {
-    searchQuery = query;
+    searchQuery = query.toLowerCase();
     applyFilters();
 }
 
 function applyFilters(): void {
     let filteredProducts = PRODUCTS.filter(p => p.disponible);
 
-    if (selectedCategory && selectedCategory !== 'all') {
+    if (!searchQuery && selectedCategory && selectedCategory !== 'all') {
         filteredProducts = filteredProducts.filter(p => p.categorias.some(c => c.nombre === selectedCategory));
     }
 
