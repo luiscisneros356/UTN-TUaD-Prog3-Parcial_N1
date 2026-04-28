@@ -36,6 +36,14 @@ function renderCategories(): void {
 
 function filterByCategory(category: string): void {
     selectedCategory = category === 'all' ? null : category;
+
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        const matches = category === 'all'
+            ? btn.textContent === 'Todos los productos'
+            : btn.textContent === category;
+        btn.classList.toggle('active', matches);
+    });
+
     applyFilters();
 }
 
@@ -47,7 +55,7 @@ function searchProducts(query: string): void {
 function applyFilters(): void {
     let filteredProducts = PRODUCTS.filter(p => p.disponible);
 
-    if (!searchQuery && selectedCategory && selectedCategory !== 'all') {
+    if (selectedCategory) {
         filteredProducts = filteredProducts.filter(p => p.categorias.some(c => c.nombre === selectedCategory));
     }
 
