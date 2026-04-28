@@ -1,9 +1,16 @@
+import type { ICategory } from './Category.js';
+
 export interface Product {
     id: number;
-    name: string;
-    price: number;
-    category: string;
-    description?: string;
+    eliminado: boolean;
+    createdAt: string;
+    nombre: string;
+    precio: number;
+    descripcion: string;
+    stock: number;
+    imagen: string;
+    disponible: boolean;
+    categorias: ICategory[];
 }
 
 export interface CartItem {

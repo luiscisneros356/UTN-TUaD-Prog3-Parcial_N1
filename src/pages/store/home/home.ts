@@ -3,31 +3,19 @@ import type { CartItem, Product } from '../../../types/Product.js';
 
 let filteredProducts: Product[] = PRODUCTS;
 let selectedCategory: string | null = null;
+let searchQuery: string = '';
 
 function renderCategories(): void {
     const categoriesList = document.getElementById('categories-list');
+    categoriesList.innerHTML = '<button class="active">Ver Todo</button>'; // Reset and add 'All' button
+    categoriesList.querySelector('button')?.addEventListener('click', () => filterByCategory('all'));
+
     const categories = getCategories();
-
-    if (!categoriesList) return;
-
-    const allBtn = document.createElement('button');
-    allBtn.className = 'category-btn active';
-    allBtn.dataset.category = 'all';
-    allBtn.textContent = 'Ver Todo';
-    allBtn.addEventListener('click', () => {
-        filterByCategory('all');
-    });
-    categoriesList.appendChild(allBtn);
-
-    categories.forEach((cat) => {
-        const btn = document.createElement('button');
-        btn.className = 'category-btn';
-        btn.dataset.category = cat.name;
-        btn.textContent = cat.name;
-        btn.addEventListener('click', () => {
-            filterByCategory(cat.name);
-        });
-        categoriesList.appendChild(btn);
+    categories.forEach((category) => {
+        const button = document.createElement('button');
+        button.textContent = category.nombre;
+        button.addEventListener('click', () => filterByCategory(category.nombre));
+        categoriesList.appendChild(button);
     });
 }
 
@@ -37,63 +25,42 @@ function filterByCategory(category: string): void {
 }
 
 function searchProducts(query: string): void {
-    const lowerQuery = query.toLowerCase();
-    filteredProducts = PRODUCTS.filter((product) => {
-        const matchesSearch = product.name.toLowerCase().includes(lowerQuery);
-        const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
-        return matchesSearch && matchesCategory;
-    });
-    renderProducts();
+    searchQuery = query;
+    applyFilters();
 }
 
 function applyFilters(): void {
-    filteredProducts = PRODUCTS.filter((product) => {
-        return selectedCategory ? product.category === selectedCategory : true;
-    });
-    renderProducts();
-    updateCategoryButtons();
+    let filteredProducts = PRODUCTS.filter(p => p.disponible);
+
+    if (selectedCategory && selectedCategory !== 'all') {
+        filteredProducts = filteredProducts.filter(p => p.categorias.some(c => c.nombre === selectedCategory));
+    }
+
+    if (searchQuery) {
+        filteredProducts = filteredProducts.filter(p =>
+            p.nombre.toLowerCase().includes(searchQuery)
+        );
+    }
+
+    renderProducts(filteredProducts);
 }
 
-function updateCategoryButtons(): void {
-    const buttons = document.querySelectorAll('.category-btn');
-    buttons.forEach((btn) => {
-        const category = btn.getAttribute('data-category');
-        if (
-            (category === 'all' && !selectedCategory) ||
-            (category === selectedCategory)
-        ) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-}
-
-function renderProducts(): void {
+function renderProducts(products: Product[]): void {
     const productsList = document.getElementById('products-list');
     if (!productsList) return;
 
-    if (filteredProducts.length === 0) {
-        productsList.innerHTML = '<p>No hay productos disponibles</p>';
-        return;
-    }
-
     productsList.innerHTML = '';
-
-    filteredProducts.forEach((product) => {
+    products.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
         productCard.innerHTML = `
-      <h3>${product.name}</h3>
-      <p>${product.description || ''}</p>
-      <p class="price">$${product.price}</p>
-      <button class="add-to-cart-btn" data-product-id="${product.id}">Agregar</button>
+      <img src="/${product.imagen}" alt="${product.nombre}">
+      <h3>${product.nombre}</h3>
+      <p>${product.descripcion}</p>
+      <p>Precio: $${product.precio}</p>
+      <button>Agregar al carrito</button>
     `;
-
-        productCard.querySelector('.add-to-cart-btn')?.addEventListener('click', () => {
-            addToCart(product);
-        });
-
+        productCard.querySelector('button')?.addEventListener('click', () => addToCart(product));
         productsList.appendChild(productCard);
     });
 }
