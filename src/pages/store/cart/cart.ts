@@ -73,10 +73,9 @@ function addEventListeners() {
         });
 
         itemElement.querySelector('.cart-item-remove')?.addEventListener('click', () => {
-            if (confirm('¿Estás seguro de que quieres eliminar este producto del carrito?')) {
-                removeFromCart(productId);
-                renderCart();
-            }
+            const productId = Number(itemElement.getAttribute('data-product-id'));
+            removeFromCart(productId);
+            renderCart();
         });
     });
 }
@@ -86,10 +85,8 @@ checkoutBtn.addEventListener('click', () => {
 });
 
 emptyCartBtn.addEventListener('click', () => {
-    if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
-        localStorage.removeItem('cart');
-        renderCart();
-    }
+    localStorage.removeItem('cart');
+    renderCart();
 });
 
 document.addEventListener('DOMContentLoaded', renderCart);
