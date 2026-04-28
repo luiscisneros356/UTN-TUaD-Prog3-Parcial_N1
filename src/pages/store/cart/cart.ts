@@ -1,4 +1,4 @@
-import type { CartItem } from '../../../types/Product.js';
+import type { CartItem } from '../../../types/product.js';
 import { calculateTotal, getCart, removeFromCart, updateQuantity } from '../../../utils/cart.js';
 
 const cartContainer = document.getElementById('cart-container')!;

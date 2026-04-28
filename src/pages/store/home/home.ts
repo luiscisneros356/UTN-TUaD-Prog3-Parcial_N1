@@ -1,13 +1,12 @@
 import { PRODUCTS, getCategories } from '../../../data/data.js';
-import type { Product } from '../../../types/Product.js';
+import type { Product } from '../../../types/product.js';
 import { addToCart } from '../../../utils/cart.js';
 
-let filteredProducts: Product[] = PRODUCTS;
 let selectedCategory: string | null = null;
 let searchQuery: string = '';
 
 function renderCategories(): void {
-    const categoriesList = document.getElementById('categories-list');
+    const categoriesList = document.getElementById('categories-list')!;
     categoriesList.innerHTML = '<button class="active">Ver Todo</button>'; // Reset and add 'All' button
     categoriesList.querySelector('button')?.addEventListener('click', () => filterByCategory('all'));
 
@@ -47,10 +46,14 @@ function applyFilters(): void {
 }
 
 function renderProducts(products: Product[]): void {
-    const productsList = document.getElementById('products-list');
-    if (!productsList) return;
-
+    const productsList = document.getElementById('products-list')!;
     productsList.innerHTML = '';
+
+    if (products.length === 0) {
+        productsList.innerHTML = '<p class="no-results">No se encontraron productos para tu búsqueda.</p>';
+        return;
+    }
+
     products.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
@@ -68,7 +71,8 @@ function renderProducts(products: Product[]): void {
 
 document.addEventListener('DOMContentLoaded', () => {
     renderCategories();
-    renderProducts();
+    const availableProducts = PRODUCTS.filter(p => p.disponible);
+    renderProducts(availableProducts);
 
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
     if (searchInput) {

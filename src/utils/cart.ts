@@ -1,4 +1,4 @@
-import type { CartItem, Product } from '../types/Product.js';
+import type { CartItem, Product } from '../types/product.js';
 
 // Obtiene el carrito del localStorage
 export function getCart(): CartItem[] {
