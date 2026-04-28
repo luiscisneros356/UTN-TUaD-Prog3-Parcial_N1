@@ -1,5 +1,5 @@
 import { PRODUCTS, getCategories } from '../../../data/data.js';
-import type { Product } from '../../../types/Product.js';
+import type { Product } from '../../../types/product.js';
 import { addToCart, getCartCount } from '../../../utils/cart.js';
 
 let selectedCategory: string | null = null;
