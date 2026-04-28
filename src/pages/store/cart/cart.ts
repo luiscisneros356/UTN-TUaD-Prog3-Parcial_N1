@@ -117,8 +117,10 @@ function renderCart() {
         });
 
         itemElement.querySelector('.cart-item-remove')?.addEventListener('click', () => {
-            removeFromCart(productId);
-            renderCart();
+            if (confirm('¿Estás seguro de que querés eliminar este producto del carrito?')) {
+                removeFromCart(productId);
+                renderCart();
+            }
         });
     });
 }
