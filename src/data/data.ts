@@ -1,4 +1,5 @@
-import { Product } from '../types/Product.js';
+import type { ICategoria } from '../types/ICategoria.js';
+import type { Product } from '../types/Product.js';
 
 export const PRODUCTS: Product[] = [
   {
@@ -58,11 +59,6 @@ export const PRODUCTS: Product[] = [
     description: 'Gaseosa 500ml'
   }
 ];
-
-export interface ICategoria {
-  id: number;
-  name: string;
-}
 
 export const getCategories = (): ICategoria[] => {
   const categories = new Set(PRODUCTS.map(p => p.category));
