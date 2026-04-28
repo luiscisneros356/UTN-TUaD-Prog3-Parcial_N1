@@ -1,4 +1,4 @@
-import type { CartItem, Product } from '../types/product.js';
+import type { CartItem, Product } from '../types/Product.js';
 
 // Obtiene el carrito del localStorage
 export function getCart(): CartItem[] {
@@ -53,4 +53,10 @@ export function updateQuantity(productId: number, quantity: number) {
 // Calcula el total del carrito
 export function calculateTotal(cart: CartItem[]): number {
     return cart.reduce((total, item) => total + item.product.precio * item.quantity, 0);
+}
+
+// Obtiene el total de items en el carrito
+export function getCartCount(): number {
+    const cart = getCart();
+    return cart.reduce((total, item) => total + item.quantity, 0);
 }

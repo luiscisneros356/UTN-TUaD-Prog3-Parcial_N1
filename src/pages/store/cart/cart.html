@@ -5,38 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Store - Carrito</title>
-    <link rel="stylesheet" href="../../../style.css">
+    <link rel="stylesheet" href="/src/style.css">
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <a href="/index.html" class="logo">FoodStore</a>
-            <nav>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <h1>Food<strong>Store</strong></h1>
+            </div>
+            <nav class="header-nav">
                 <a href="../home/home.html">Catálogo</a>
-                <a href="./cart.html" class="active">Carrito</a>
+                <a href="./cart.html" class="cart-link">Carrito <span id="cart-badge" class="cart-badge">0</span></a>
             </nav>
-        </div>
-    </header>
+        </header>
 
-    <main class="container">
-        <h2 class="cart-title">Mi Carrito</h2>
-        <div id="cart-container">
-            <!-- Contenido del carrito se generará aquí -->
-        </div>
+        <main>
+            <h2 style="margin-bottom: 2rem; font-size: 1.8rem;">Mi Carrito</h2>
+            <div id="cart-container">
+                <!-- Contenido del carrito se generará aquí -->
+            </div>
 
-        <div id="empty-cart-message" class="empty-cart-container" style="display: none;">
-            <img src="/cart-empty.svg" alt="Carrito vacío" width="100">
-            <p>Tu carrito está vacío</p>
-            <a href="../home/home.html" class="btn">Ver catálogo</a>
-        </div>
-    </main>
+            <div id="empty-cart-message" class="empty-cart" style="display: none;">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='50' text-anchor='middle' fill='%23999'%3E🛒%3C/text%3E%3C/svg%3E"
+                    alt="Carrito vacío">
+                <p>Tu carrito está vacío</p>
+                <a href="../home/home.html">Ver catálogo</a>
+            </div>
+        </main>
 
-    <footer>
-        <div class="container">
+        <footer>
             <p>&copy; 2024 Food Store. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script type="module" src="./cart.ts"></script>
 </body>

@@ -1,6 +1,6 @@
 // src/utils/data.ts
 import type { ICategory } from "../types/categoria.js";
-import type { Product } from "../types/product.js";
+import type { Product } from "../types/Product.js";
 
 
 const categorias: ICategory[] = [
