@@ -1,6 +1,6 @@
 import { PRODUCTS, getCategories } from '../../../data/data.js';
-import type { Product } from '../../../types/Product.js';
-import { addToCart, getCartCount } from '../../../utils/cart.js';
+import type { Product } from '../../../types/product.js';
+import { addToCart, getCartCount } from '../cart/cart.js';
 
 let selectedCategory: string | null = null;
 let searchQuery: string = '';
@@ -89,7 +89,7 @@ function renderProducts(products: Product[]): void {
         `;
         productCard.querySelector('.add-to-cart-btn')?.addEventListener('click', (e) => {
             const button = e.target as HTMLButtonElement;
-            addToCart(product, false);
+            addToCart(product);
             updateCartBadge();
 
             // Cambiar el botón a estado "agregado"

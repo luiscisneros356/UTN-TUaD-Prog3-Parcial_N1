@@ -20,8 +20,6 @@ dist-ssr
 *.suo
 
 # Archivos de notas
-errores.txt
-resumen_del_dia.txt
 *.ntvs*
 *.njsproj
 *.sln
