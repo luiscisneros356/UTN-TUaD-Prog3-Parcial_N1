@@ -12,7 +12,7 @@ function saveCart(cart: CartItem[]) {
 }
 
 // Agrega un producto al carrito
-export function addToCart(product: Product) {
+export function addToCart(product: Product, showAlert: boolean = true) {
     const cart = getCart();
     const existingItem = cart.find(item => item.product.id === product.id);
 
@@ -23,7 +23,9 @@ export function addToCart(product: Product) {
     }
 
     saveCart(cart);
-    alert(`"${product.nombre}" fue agregado al carrito!`);
+    if (showAlert) {
+        alert(`"${product.nombre}" fue agregado al carrito!`);
+    }
 }
 
 // Elimina un producto del carrito

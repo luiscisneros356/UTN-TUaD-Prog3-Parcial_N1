@@ -87,9 +87,20 @@ function renderProducts(products: Product[]): void {
                 </div>
             </div>
         `;
-        productCard.querySelector('.add-to-cart-btn')?.addEventListener('click', () => {
-            addToCart(product);
+        productCard.querySelector('.add-to-cart-btn')?.addEventListener('click', (e) => {
+            const button = e.target as HTMLButtonElement;
+            addToCart(product, false);
             updateCartBadge();
+
+            // Cambiar el botón a estado "agregado"
+            button.classList.add('added');
+            button.innerHTML = '✓ Agregado';
+
+            // Volver al estado normal después de 2 segundos
+            setTimeout(() => {
+                button.classList.remove('added');
+                button.innerHTML = '+ Agregar';
+            }, 2000);
         });
         productsList.appendChild(productCard);
     });
