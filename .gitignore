@@ -18,6 +18,9 @@ dist-ssr
 .idea
 .DS_Store
 *.suo
+
+# Archivos de notas
+errores.txt
 *.ntvs*
 *.njsproj
 *.sln

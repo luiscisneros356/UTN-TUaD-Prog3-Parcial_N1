@@ -1,17 +1,23 @@
-import { PRODUCTS, getCategories } from '../../../data/data';
-import { Product } from '../../../types/Product';
+import { PRODUCTS, getCategories } from '../../../data/data.js';
+import type { CartItem, Product } from '../../../types/Product.js';
 
 let filteredProducts: Product[] = PRODUCTS;
 let selectedCategory: string | null = null;
 
-// Renderizar categorías
 function renderCategories(): void {
     const categoriesList = document.getElementById('categories-list');
     const categories = getCategories();
 
     if (!categoriesList) return;
 
-    categoriesList.innerHTML = '<button class="category-btn active" data-category="all">Ver Todo</button>';
+    const allBtn = document.createElement('button');
+    allBtn.className = 'category-btn active';
+    allBtn.dataset.category = 'all';
+    allBtn.textContent = 'Ver Todo';
+    allBtn.addEventListener('click', () => {
+        filterByCategory('all');
+    });
+    categoriesList.appendChild(allBtn);
 
     categories.forEach((cat) => {
         const btn = document.createElement('button');
@@ -25,13 +31,11 @@ function renderCategories(): void {
     });
 }
 
-// Filtrar por categoría
 function filterByCategory(category: string): void {
     selectedCategory = category === 'all' ? null : category;
     applyFilters();
 }
 
-// Buscar productos
 function searchProducts(query: string): void {
     const lowerQuery = query.toLowerCase();
     filteredProducts = PRODUCTS.filter((product) => {
@@ -42,7 +46,6 @@ function searchProducts(query: string): void {
     renderProducts();
 }
 
-// Aplicar filtros
 function applyFilters(): void {
     filteredProducts = PRODUCTS.filter((product) => {
         return selectedCategory ? product.category === selectedCategory : true;
@@ -51,7 +54,6 @@ function applyFilters(): void {
     updateCategoryButtons();
 }
 
-// Actualizar estado de botones de categoría
 function updateCategoryButtons(): void {
     const buttons = document.querySelectorAll('.category-btn');
     buttons.forEach((btn) => {
@@ -67,7 +69,6 @@ function updateCategoryButtons(): void {
     });
 }
 
-// Renderizar productos
 function renderProducts(): void {
     const productsList = document.getElementById('products-list');
     if (!productsList) return;
@@ -97,27 +98,25 @@ function renderProducts(): void {
     });
 }
 
-// Agregar al carrito
 function addToCart(product: Product): void {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const existingItem = cart.find((item: any) => item.id === product.id);
+    const cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
+    const existingItem = cart.find((item: any) => item.product.id === product.id);
 
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        cart.push({ ...product, quantity: 1 });
+        cart.push({ product, quantity: 1 });
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
     alert(`${product.name} agregado al carrito`);
 }
 
-// Inicializar
 document.addEventListener('DOMContentLoaded', () => {
     renderCategories();
     renderProducts();
 
-    const searchInput = document.getElementById('search-input');
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const query = (e.target as HTMLInputElement).value;
