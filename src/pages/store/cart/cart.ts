@@ -3,6 +3,7 @@ import { calculateTotal, getCart, removeFromCart, updateQuantity } from '../../.
 
 const cartItemsList = document.getElementById('cart-items-list')!;
 const emptyCartMessage = document.getElementById('empty-cart-message')!;
+const cartRight = document.querySelector('.cart-right')! as HTMLElement;
 const subtotalElement = document.getElementById('subtotal')!;
 const totalElement = document.getElementById('total')!;
 const checkoutBtn = document.getElementById('checkout-btn')!;
@@ -14,6 +15,7 @@ function renderCart() {
     if (cart.length === 0) {
         cartItemsList.style.display = 'none';
         emptyCartMessage.style.display = 'block';
+        cartRight.style.display = 'none';
         subtotalElement.textContent = '$0';
         totalElement.textContent = '$0';
         return;
@@ -21,6 +23,7 @@ function renderCart() {
 
     cartItemsList.style.display = 'block';
     emptyCartMessage.style.display = 'none';
+    cartRight.style.display = 'block';
 
     const total = calculateTotal(cart);
 
