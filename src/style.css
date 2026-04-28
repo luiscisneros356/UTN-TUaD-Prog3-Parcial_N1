@@ -590,8 +590,8 @@ footer {
 }
 
 .empty-cart img {
-    width: 120px;
-    height: 120px;
+    width: 280px;
+    height: 280px;
     margin-bottom: 2rem;
     opacity: 0.7;
 }
@@ -606,7 +606,6 @@ footer {
 .empty-cart a {
     display: block;
     width: 100%;
-    max-width: 400px;
     padding: 1.2rem 2rem;
     background-color: #2d5a3d;
     color: white;
