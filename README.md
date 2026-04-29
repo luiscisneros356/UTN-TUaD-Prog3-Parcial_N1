@@ -1,5 +1,9 @@
 # Food Store - Carrito de Compras
 
+**Evaluación:** Primer Parcial - Programación III  
+**Alumno:** Luis Cisneros  
+**Fecha:** Abril 2026
+
 ## Descripción del Proyecto
 
 Food Store es una aplicación frontend de catálogo de productos con carrito de compras persistente. Desarrollada con HTML5, CSS3, JavaScript y TypeScript (sin frameworks), implementa funcionalidades de búsqueda, filtrado por categoría y carrito con localStorage.
@@ -23,10 +27,11 @@ Food Store es una aplicación frontend de catálogo de productos con carrito de 
 
 ## Instrucciones para Ejecutar
 
-### 1. Clonar el repositorio (ya hecho)
+### 1. Clonar el repositorio 
 ```bash
-git clone https://github.com/chiro45/proteger_rutas
-cd proteger_rutas
+git clone  https://github.com/luiscisneros356/UTN-TUaD-Prog3-Parcial_N1
+rama master
+
 ```
 
 ### 2. Instalar dependencias
@@ -117,7 +122,3 @@ src/
 - Compatible con navegadores modernos (Chrome, Firefox, Safari, Edge)
 
 ---
-
-**Evaluación:** Primer Parcial - Programación III  
-**Alumno:** Luis Cisneros  
-**Fecha:** Abril 2026
